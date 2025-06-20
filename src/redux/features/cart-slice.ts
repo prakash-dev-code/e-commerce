@@ -75,7 +75,7 @@ export const addToCartThunk = createAsyncThunk(
 
     try {
       await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}api/v1/users/cart/add`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}api/v1/users/cart/add`,
         {
           productId: item.id,
           quantity: 1,
@@ -110,14 +110,17 @@ export const removeFromCartThunk = createAsyncThunk(
     if (!user || !token) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/v1/users/cart/remove`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          productId: item.id,
-        },
-      });
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}api/v1/users/cart/remove`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            productId: item.id,
+          },
+        }
+      );
       await dispatch(fetchLoggedUserThunk());
     } catch (error) {
       console.error("Failed to remove item from cart", error);
@@ -138,7 +141,7 @@ export const clearCartThunk = createAsyncThunk(
 
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_LOCAL_URL}api/v1/users/cart/clear`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}api/v1/users/cart/clear`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
