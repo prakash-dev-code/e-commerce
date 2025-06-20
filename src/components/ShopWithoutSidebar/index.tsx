@@ -46,7 +46,7 @@ const ShopWithoutSidebar = () => {
   } = useQuery<ShopApiResponse>(
     ["products", debouncedQuery, currentPage],
     async () => {
-      const baseUrl = `${process.env.NEXT_PUBLIC_API_LOCAL_URL}api/v1/products`;
+      const baseUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}api/v1/products`;
       const queryParams = new URLSearchParams();
 
       if (debouncedQuery) queryParams.append("name", debouncedQuery);
